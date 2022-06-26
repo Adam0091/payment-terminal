@@ -1,8 +1,19 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import styled, { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import { normalize } from 'styled-normalize';
 
+const Global = createGlobalStyle`
+  ${reset};
+  ${normalize};
+`
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Global />
+      <Component {...pageProps} />
+    </>
+  )
 }
 
 export default MyApp
