@@ -1,11 +1,11 @@
-import Home from 'pages/home';
+import Home from "pages/home";
 
 const App: NextPage = () => {
   return (
     <>
       <Home />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
