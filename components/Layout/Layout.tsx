@@ -1,11 +1,18 @@
-import Header from "components/Header/";
-import Footer from "./../Footer/Footer";
+import * as React from "react";
+import Header from "./../Header/";
+import { PageStyle } from "./Layout.style";
 
-const Layout = ({ children }) => (
+export interface StandardComponentProps {
+  title?: string;
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: StandardComponentProps) => (
   <>
-    <Header />
-    {children}
-    <Footer />
+    <PageStyle>
+      <Header />
+      {children}
+    </PageStyle>
   </>
 );
 export default Layout;
