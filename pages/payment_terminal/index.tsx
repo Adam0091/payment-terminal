@@ -1,17 +1,27 @@
 import { NextPage } from "next";
 
-import Layout from "../../components/Layout/Layout";
-import ChooseProvider from './../../components/Providers/ChooseProvider/ChooseProvider';
+import Layout from "../../components/Layout";
+import ProvidersList from "../../components/Providers/ProvidersList";
 
-import { TerminalWrapper } from "./PaymentTerminal.style";
+import { PageWrapper } from "../../components/PageWrapper.style";
 
+export const getStaticProps = async () => {
+  const response = await fetch("http://localhost:3000/api/providers");
+  const data = await response.json();
 
-const PaymentTerminal: NextPage = () => {
+  if (!data) {
+    return { notFound: true };
+  }
+
+  return { props: { providers: data } };
+};
+
+const PaymentTerminal: NextPage = ({ providers }) => {
   return (
     <Layout>
-      <TerminalWrapper>
-        <ChooseProvider />
-      </TerminalWrapper>
+      <PageWrapper>
+        <ProvidersList providers={providers} />
+      </PageWrapper>
     </Layout>
   );
 };
