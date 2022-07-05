@@ -1,13 +1,20 @@
-import { LogoStyle } from "../Provider/Provider.style";
-import { AddProviderWrapper, LogoAddWrapper } from './AddProvider.style';
+import Link from "next/link";
+
+import Logo from "../ProviderLogo";
+
+import { AddProviderWrapper } from "./AddProvider.style";
 
 const AddProvider = () => {
   return (
-    <AddProviderWrapper key="Add new Provider">
-      <LogoAddWrapper>
-        <LogoStyle src={"/plus.svg"} alt="Add Logo" />
-      </LogoAddWrapper>
-    </AddProviderWrapper>
+    <>
+      <AddProviderWrapper key="Add new Provider">
+        <Link href="./payment_terminal/add_provider">
+          <a>
+            <Logo src={"/plus.svg"} alt="Add Logo" isAnimated={true} />
+          </a>
+        </Link>
+      </AddProviderWrapper>
+    </>
   );
 };
 
