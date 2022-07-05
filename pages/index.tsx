@@ -1,4 +1,5 @@
-import Home from "pages/home";
+import { NextPage } from "next";
+import Home from "./home/index";
 
 const App: NextPage = () => {
   return (
