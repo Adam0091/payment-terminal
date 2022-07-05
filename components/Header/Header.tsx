@@ -2,41 +2,53 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   HeaderWrapper,
-  ImgStyled,
+  LogoContainer,
+  LogoLink,
   LogoWrapper,
-  NavLinkActiveStyle,
   NavLinkStyle,
   NavListStyle,
 } from "./Header.style";
 
 const navigation = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Payment terminal", path: "/payment_terminal" },
+  { id: 1, title: "Home", paths: ["/home", "/"] },
+  {
+    id: 2,
+    title: "Payment terminal",
+    paths: ["/payment_terminal", "/payment_terminal/add_provider"],
+  },
 ];
+
+const checkPath = (paths: Array<string>, pathname: string): boolean => {
+  for (const path of paths) {
+    if (path === pathname) return true;
+  }
+  if (pathname.includes(paths[0])) return true;
+  return false;
+};
 
 const Header = () => {
   const { pathname } = useRouter();
 
   return (
     <HeaderWrapper>
-      <LogoWrapper>
-        <ImgStyled src="logo3.svg" alt="Logo" />
-        <h1>CodePay</h1>
-      </LogoWrapper>
+      <Link href="/">
+        <LogoLink>
+          <LogoWrapper>
+            <LogoContainer />
+            <h1>CodePay</h1>
+          </LogoWrapper>
+        </LogoLink>
+      </Link>
 
-      <nav>
-        <NavListStyle>
-          {navigation.map(({ id, title, path }) => (
-            <Link key={id} href={path}>
-              {pathname === path ? (
-                <NavLinkActiveStyle>{title}</NavLinkActiveStyle>
-              ) : (
-                <NavLinkStyle>{title}</NavLinkStyle>
-              )}
-            </Link>
-          ))}
-        </NavListStyle>
-      </nav>
+      <NavListStyle>
+        {navigation.map(({ id, title, paths }) => (
+          <Link key={id} href={paths[0]}>
+            <NavLinkStyle isActiveLink={checkPath(paths, pathname)}>
+              {title}
+            </NavLinkStyle>
+          </Link>
+        ))}
+      </NavListStyle>
     </HeaderWrapper>
   );
 };

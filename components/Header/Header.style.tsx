@@ -1,49 +1,71 @@
 import styled from "styled-components";
+import {
+  fontColor,
+  fontColorHover,
+  fontFamily,
+  widthHeaderLogo,
+  fontColorActive,
+  fontSize,
+} from "../../style_constants/index";
 
 export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 80px;
+
+  min-height: 90px;
+
+  font-size: ${fontSize};
+  font-family: ${fontFamily};
+  color: ${fontColor};
+
   background: rgb(123, 163, 210);
   background: linear-gradient(
     55deg,
     rgba(123, 163, 210, 1) 60%,
     rgba(174, 235, 238, 1) 100%
   );
-  min-height: 90px;
+`;
+// Logo
 
-  font-size: 18px;
-  font-family: sans-serif;
-  color: white;
+export const LogoLink = styled.a`
+  text-decoration: none;
+  color: ${fontColor};
+
+  cursor: pointer;
 `;
 
-export const ImgStyled = styled.img`
-  width: 70px;
-`;
 export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 10px;
+  user-select: none;
 `;
 
-export const NavListStyle = styled.ul`
+export const LogoContainer = styled.div`
+  width: ${widthHeaderLogo};
+  height: ${widthHeaderLogo};
+
+  background-image: url("/logo3.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: cover;
+`;
+
+// Navigation
+export const NavListStyle = styled.nav`
   display: flex;
   column-gap: 30px;
 `;
 
-export const NavLinkActiveStyle = styled.a`
+export const NavLinkStyle = styled.a<{ isActiveLink: boolean }>`
   text-decoration: none;
-  color: #2965aa;
-  cursor: pointer;
-`;
-
-export const NavLinkStyle = styled.a`
-  text-decoration: none;
-  color: #ffffff;
+  color: ${({ isActiveLink }) => (isActiveLink ? fontColorActive : fontColor)};
+  transition: all 0.2s ease;
   cursor: pointer;
 
   &:hover {
-    color: #ffd5d5;
+    color: ${({ isActiveLink }) => (isActiveLink ? null : fontColorHover)};
   }
 `;
