@@ -33,7 +33,10 @@ const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
   if (!provider) return <h1>Провайдер не известен</h1>;
 
   const handleClick = async () => {
-    const dataPost = await fetch("http://localhost:3000/api/pay", {
+    const api_host = process.env.API_HOST
+      ? process.env.API_HOST
+      : "http://localhost:3000";
+    const dataPost = await fetch(`${api_host}/api/pay`, {
       method: "POST",
       headers: {
         Accept: "application/json",
