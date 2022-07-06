@@ -7,7 +7,7 @@ import ButtonUI from "../../components/UI-Kit/ButtonUI";
 import Input from "../../components/UI-Kit/Inputs/Input";
 import { PageWrapper } from "../../components/PageWrapper.style";
 import { useState } from "react";
-import { Alert, styled } from "@mui/material";
+import { Alert, CircularProgress, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
 export const AlertFixed = styled(Alert)({
@@ -21,30 +21,35 @@ const AddProvider = () => {
   const [urlLogoProvider, setUrlLogoProvider] = useState("");
   const [isSend, setIsSend] = useState(false);
   const [error, setError] = useState(false);
+  const [res, setRes] = useState(false);
   const router = useRouter();
 
   const handleClick = async () => {
-    const response = await fetch("http://localhost:3000/api/providers");
-    const dataGet = await response.json();
+    try {
+      const response = await fetch(`${process.env.API_HOST}/api/providers`);
+      const dataGet = await response.json();
 
-    const dataPost = await fetch("http://localhost:3000/api/providers", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: dataGet.length,
-        name: nameProvider,
-        logo: urlLogoProvider,
-      }),
-    });
-    const res = await dataPost.json;
+      const dataPost = await fetch(`${process.env.API_HOST}/api/providers`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: dataGet.length,
+          name: nameProvider,
+          logo: urlLogoProvider,
+        }),
+      });
+      const res = Boolean(await dataPost.json);
 
-    setIsSend(true);
-    res ? setError(false) : setError(true);
-    if (!error) {
-      setTimeout(() => router.back(), 1500);
+      setIsSend(true);
+      res ? setError(false) : setError(true);
+      setRes(true);
+      if (!error) setTimeout(() => router.back(), 1500);
+    } catch (err) {
+      setIsSend(true);
+      setError(true);
     }
   };
 
@@ -79,11 +84,14 @@ const AddProvider = () => {
             </FormWrapper>
           </Container>
         </Wrapper>
-        {isSend && (
-          <AlertFixed severity={error ? "error" : "success"}>
-            {error ? "Провайдер не был создан" : "Провайдер создан"}
-          </AlertFixed>
-        )}
+        {isSend &&
+          (res ? (
+            <AlertFixed severity={error ? "error" : "success"}>
+              {error ? "Провайдер не был создан" : "Провайдер создан"}
+            </AlertFixed>
+          ) : (
+            <CircularProgress />
+          ))}
       </PageWrapper>
     </Layout>
   );

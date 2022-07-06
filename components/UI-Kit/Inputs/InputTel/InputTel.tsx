@@ -2,13 +2,15 @@ import { useState } from "react";
 import * as React from "react";
 import InputMask from "react-input-mask";
 
+import { inputType } from "../../../../type";
+
 import {
   InputContainer,
   InputWrapper,
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputTel.style";
 
-const InputTel = ({ value, onChange, setError }) => {
+const InputTel = ({ value, onChange, setError }: inputType) => {
   const [telDirty, setTelDirty] = useState(false);
   const [telErrorMessage, setTelErrorMessage] = useState(
     "Телефон не может быть пустым"

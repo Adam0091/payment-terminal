@@ -16,7 +16,8 @@ import { FormWrapper, ProviderLogoWrapper } from "./ProviderPaymentForm.style";
 export const AlertFixed = styled(Alert)({
   position: "fixed",
   top: "90%",
-  left: "85%",
+  right: "0",
+  margin: "0 30px 0 0",
 });
 
 const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
@@ -48,7 +49,7 @@ const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
 
     dataPost.ok ? setErrorSend(false) : setErrorSend(true);
     if (dataPost.ok) {
-      setTimeout(() => router.back(), 1500);
+      setTimeout(() => router.back(), 500);
     }
   };
 
@@ -64,13 +65,13 @@ const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
         <FormWrapper className="form">
           <InputTel
             value={tel}
-            onChange={(value) => setTel(value)}
-            setError={(isError) => setErrorTel(isError)}
+            onChange={(value: string) => setTel(value)}
+            setError={(isError: boolean) => setErrorTel(isError)}
           />
           <InputSum
             value={sum}
-            onChange={(value) => setSum(value)}
-            setError={(isError) => setErrorSum(isError)}
+            onChange={(value: string) => setSum(value)}
+            setError={(isError: boolean) => setErrorSum(isError)}
           />
           <ButtonUI
             text="Оплатить"

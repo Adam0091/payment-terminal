@@ -11,9 +11,8 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const data = Boolean(randomIntFromInterval(0, 1));
-    console.log(data);
-    data
-      ? res.status(200).json({ success: data })
-      : res.status(400).json({ success: data });
+    const fakeData = [{ id: NaN, name: "Fake", logo: "Fake" } as providerType];
+
+    data ? res.status(200).json(fakeData) : res.status(400).json(fakeData);
   }
 }
