@@ -12,7 +12,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await result.json();
 
   return {
-    paths: paths.map((path: providerType) => ({ params: { providerID: path } })),
+    paths: paths.map((path: providerType) => ({
+      params: { providerID: path },
+    })),
     fallback: true,
   };
 };
