@@ -1,29 +1,29 @@
 import Provider from "../ProviderItem";
 import {
-  ProvidersListA,
   ProvidersListLi,
   ProvidersListUl,
   TitleStyle,
 } from "./ProvidersList.style";
 import AddProvider from "../AddProvider/AddProvider";
-import Link from "next/link";
 import { providerType } from "../../../type";
 import { Container, Wrapper } from "../Providers.style";
+import { useRouter } from "next/router";
 
 const ProvidersList = ({ providers }: { providers: Array<providerType> }) => {
+  const router = useRouter();
+
   return (
     <Wrapper>
       <TitleStyle>Choose your provider</TitleStyle>
       <Container>
         <ProvidersListUl>
           {providers &&
-            providers.map((provider: providerType) => (
-              <ProvidersListLi key={provider.id}>
-                <Link href={`/payment_terminal/${provider.id}`}>
-                  <ProvidersListA>
-                    <Provider {...provider} />
-                  </ProvidersListA>
-                </Link>
+            providers.map((provider: providerType, id) => (
+              <ProvidersListLi
+                key={provider.id}
+                onClick={() => router.push(`/payment_terminal/${id}`)}
+              >
+                <Provider {...provider} />
               </ProvidersListLi>
             ))}
 
