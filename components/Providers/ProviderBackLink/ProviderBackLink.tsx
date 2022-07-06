@@ -12,7 +12,7 @@ const ProviderBackLink = () => {
   return (
     <div onClick={handleClick}>
       <WrapperBackLink>
-        <Image src="/arrow.svg" width={30} height={30} alt="" />
+        <Image src="/arrow.svg" width={30} height={30} alt="Back link" />
       </WrapperBackLink>
     </div>
   );
