@@ -46,6 +46,7 @@ const InputTel = ({ value, onChange, setError }: inputType) => {
           onBlur={(e) => blurHandler(e)}
         >
           <CssTextField
+            type="tel"
             required
             error={Boolean(telErrorMessage) && telDirty}
             fullWidth

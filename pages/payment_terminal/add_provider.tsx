@@ -84,7 +84,7 @@ const AddProvider = () => {
               <ButtonUI
                 text="Создать"
                 onClick={handleClick}
-                disabled={!(nameProvider && urlLogoProvider)}
+                disabled={!((nameProvider && urlLogoProvider) || isSend)}
               />
             </FormWrapper>
           </Container>
