@@ -4,6 +4,7 @@ export const ProviderWrapper = styled.div`
   width: 90%;
 
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   column-gap: 40px;
 
