@@ -29,6 +29,7 @@ const AddProvider = () => {
     const api_host = process.env.API_HOST
       ? process.env.API_HOST
       : "http://localhost:3000";
+    console.log(process.env.API_HOST);
     try {
       const response = await fetch(`${api_host}/api/providers`);
       const dataGet = await response.json();
