@@ -5,7 +5,7 @@ const ProvideItem = ({ name, logo }: { name: string; logo: string }) => {
   return (
     <ProviderWrapper key={name}>
       <Logo src={logo} alt={name} />
-      <h2>{name}</h2>
+      <h3>{name}</h3>
     </ProviderWrapper>
   );
 };
