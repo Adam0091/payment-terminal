@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { fontSize } from "../../../style_constants";
 
 export const FormWrapper = styled.form`
-  width:90% ;
+  width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
