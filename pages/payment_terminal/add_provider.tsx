@@ -13,7 +13,8 @@ import { useRouter } from "next/router";
 export const AlertFixed = styled(Alert)({
   position: "fixed",
   top: "90%",
-  left: "85%",
+  right: "0",
+  margin: "0 30px 0 0",
 });
 
 const AddProvider = () => {

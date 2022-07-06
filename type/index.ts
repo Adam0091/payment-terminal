@@ -3,6 +3,7 @@ export type providerType = {
   name: string
   logo: string
 }
+
 export type activeType = {
   isActive: boolean
   setIsActive: Function
