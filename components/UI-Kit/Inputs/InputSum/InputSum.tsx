@@ -21,7 +21,7 @@ const InputSum = ({ value, onChange, setError }: inputType) => {
   const sumHandler = (targetValue: string) => {
     value = targetValue.replace(/ /g, "");
 
-    if (!isNaN(Number(value)) && value == "`" && Number(value) >= 0) {
+    if (!isNaN(Number(value)) && !value.includes("`") && Number(value) >= 0) {
       setSumErrorMessage("");
       setError(false);
 

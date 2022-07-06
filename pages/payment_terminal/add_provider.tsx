@@ -26,11 +26,14 @@ const AddProvider = () => {
   const router = useRouter();
 
   const handleClick = async () => {
+    const api_host = process.env.API_HOST
+      ? process.env.API_HOST
+      : "http://localhost:3000";
     try {
-      const response = await fetch(`${process.env.API_HOST}/api/providers`);
+      const response = await fetch(`${api_host}/api/providers`);
       const dataGet = await response.json();
 
-      const dataPost = await fetch(`${process.env.API_HOST}/api/providers`, {
+      const dataPost = await fetch(`${api_host}/api/providers`, {
         method: "POST",
         headers: {
           Accept: "application/json",

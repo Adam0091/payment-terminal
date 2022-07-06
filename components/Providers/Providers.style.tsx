@@ -5,6 +5,7 @@ export const Wrapper = styled.div<{ height?: string }>`
   width: 100%;
   height: ${({ height }) => (height ? height : "70%")};
   max-width: 400px;
+  min-height: 420px;
 
   padding: 20px 15px 40px 15px;
   margin: 0 40px;
