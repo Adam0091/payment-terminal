@@ -4,7 +4,7 @@ import { PageStyle } from "./Layout.style";
 
 export interface StandardComponentProps {
   title?: string;
-  children: React.ReactNode;
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const Layout = ({ children }: StandardComponentProps) => (
