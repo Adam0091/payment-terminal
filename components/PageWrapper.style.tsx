@@ -12,4 +12,8 @@ export const PageWrapper = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right center;
+
+  @media screen and (max-height: 600px) {
+    min-height: 800px;
+  }
 `;
