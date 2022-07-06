@@ -25,4 +25,9 @@ export const ProviderWrapper = styled.div`
   &:hover {
     background-color: #4573a7;
   }
+
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+    row-gap: 30px;
+  }
 `;

@@ -16,6 +16,10 @@ export const Wrapper = styled.div<{ height?: string }>`
     rgba(123, 163, 210, 1) 60%,
     rgba(174, 235, 238, 1) 100%
   );
+
+  @media screen and (max-width: 767px) {
+    margin: 0 10px;
+  }
 `;
 
 export const Container = styled.div`

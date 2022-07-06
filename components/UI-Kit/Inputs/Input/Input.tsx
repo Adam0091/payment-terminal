@@ -39,6 +39,7 @@ const Input = ({
           variant="outlined"
           name={name}
           value={value}
+          InputLabelProps={{ style: { fontSize: 12 } }}
           onBlur={(e) => blurHandler(e)}
           onChange={(e) => onChange(e.target.value)}
         />

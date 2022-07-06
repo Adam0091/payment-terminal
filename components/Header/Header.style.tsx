@@ -6,6 +6,7 @@ import {
   widthHeaderLogo,
   fontColorActive,
   fontSize,
+  fontSizeSmall,
 } from "../../style_constants/index";
 
 export const HeaderWrapper = styled.header`
@@ -26,6 +27,10 @@ export const HeaderWrapper = styled.header`
     rgba(123, 163, 210, 1) 60%,
     rgba(174, 235, 238, 1) 100%
   );
+
+  @media screen and (max-width: 767px) {
+    padding: 0 20px;
+  }
 `;
 // Logo
 
@@ -41,6 +46,10 @@ export const LogoWrapper = styled.div`
   align-items: center;
   column-gap: 10px;
   user-select: none;
+
+  @media screen and (max-width: 767px) {
+    font-size: ${fontSizeSmall};
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -54,9 +63,35 @@ export const LogoContainer = styled.div`
 `;
 
 // Navigation
-export const NavListStyle = styled.nav`
+export const NavListStyle = styled.nav<{ isActive: boolean }>`
   display: flex;
   column-gap: 30px;
+
+  @media screen and (max-width: 767px) {
+    width: ${({ isActive }) => (isActive ? "320px" : "0")};
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding-top: 120px;
+
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+    background: rgb(123, 163, 210);
+    background: linear-gradient(
+      45deg,
+      rgba(123, 163, 210, 1) 60%,
+      rgba(174, 235, 238, 1) 100%
+    );
+    overflow: hidden;
+    transition: all 0.5s;
+    z-index: 3;
+
+    font-size: 22px;
+  }
 `;
 
 export const NavLinkStyle = styled.a<{ isActiveLink: boolean }>`
@@ -67,5 +102,11 @@ export const NavLinkStyle = styled.a<{ isActiveLink: boolean }>`
 
   &:hover {
     color: ${({ isActiveLink }) => (isActiveLink ? null : fontColorHover)};
+  }
+
+  @media screen and (max-width: 767px) {
+    display: block;
+    padding: 10px 0;
+    white-space: nowrap;
   }
 `;
