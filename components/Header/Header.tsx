@@ -10,19 +10,22 @@ import {
 } from "./Header.style";
 
 const navigation = [
-  { id: 1, title: "Home", paths: ["/home", "/"] },
+  { id: 1, title: "Home", path: "/" },
   {
     id: 2,
     title: "Payment terminal",
-    paths: ["/payment_terminal", "/payment_terminal/add_provider"],
+    path: "payment_terminal",
   },
 ];
 
-const checkPath = (paths: Array<string>, pathname: string): boolean => {
-  for (const path of paths) {
-    if (path === pathname) return true;
-  }
-  if (pathname.includes(paths[0])) return true;
+const checkPath = (path: string, pathname: string): boolean => {
+  const pathnameWithoutSleshes = path.replace(/\//g, "");
+  if (
+    pathname.includes(pathnameWithoutSleshes) &&
+    pathnameWithoutSleshes !== ""
+  )
+    return true;
+  else if (pathnameWithoutSleshes == "" && pathname === "/") return true;
   return false;
 };
 
@@ -41,9 +44,9 @@ const Header = () => {
       </Link>
 
       <NavListStyle>
-        {navigation.map(({ id, title, paths }) => (
-          <Link key={id} href={paths[0]}>
-            <NavLinkStyle isActiveLink={checkPath(paths, pathname)}>
+        {navigation.map(({ id, title, path: path }) => (
+          <Link key={id} href={path}>
+            <NavLinkStyle isActiveLink={checkPath(path, pathname)}>
               {title}
             </NavLinkStyle>
           </Link>
