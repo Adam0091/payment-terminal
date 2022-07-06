@@ -1,16 +1,20 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { WrapperBackLink } from "./ProviderBackLink.style";
 
 const ProviderBackLink = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.back();
+  };
+
   return (
-    <Link href={"../payment_terminal"}>
-      <a>
-        <WrapperBackLink>
-          <Image src="/arrow.svg" width={30} height={30} alt="" />
-        </WrapperBackLink>
-      </a>
-    </Link>
+    <div onClick={handleClick}>
+      <WrapperBackLink>
+        <Image src="/arrow.svg" width={30} height={30} alt="" />
+      </WrapperBackLink>
+    </div>
   );
 };
 

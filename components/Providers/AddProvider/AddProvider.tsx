@@ -8,7 +8,7 @@ const AddProvider = () => {
   return (
     <>
       <AddProviderWrapper key="Add new Provider">
-        <Link href="./payment_terminal/add_provider">
+        <Link href="/payment_terminal/add_provider">
           <a>
             <Logo src={"/plus.svg"} alt="Add Logo" isAnimated={true} />
           </a>
