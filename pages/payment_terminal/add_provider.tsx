@@ -13,7 +13,8 @@ import { useRouter } from "next/router";
 export const AlertFixed = styled(Alert)({
   position: "fixed",
   top: "90%",
-  left: "85%",
+  right: "0",
+  margin: "0 30px 0 0",
 });
 
 const AddProvider = () => {
@@ -24,10 +25,10 @@ const AddProvider = () => {
   const router = useRouter();
 
   const handleClick = async () => {
-    const response = await fetch("http://localhost:3000/api/providers");
+    const response = await fetch(`${process.env.API_HOST}/providers`);
     const dataGet = await response.json();
 
-    const dataPost = await fetch("http://localhost:3000/api/providers", {
+    const dataPost = await fetch(`${process.env.API_HOST}/providers`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -39,7 +40,7 @@ const AddProvider = () => {
         logo: urlLogoProvider,
       }),
     });
-    const res = await dataPost.json;
+    const res = Boolean(await dataPost.json);
 
     setIsSend(true);
     res ? setError(false) : setError(true);

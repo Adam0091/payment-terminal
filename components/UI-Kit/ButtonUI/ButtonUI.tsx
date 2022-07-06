@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { ColorButton } from "./ButtonUI.style";
 
 const ButtonUI = ({
@@ -6,7 +7,7 @@ const ButtonUI = ({
   disabled,
 }: {
   text: string;
-  onClick: any;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
 }) => {
   return (

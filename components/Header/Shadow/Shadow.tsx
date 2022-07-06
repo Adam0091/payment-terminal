@@ -1,6 +1,7 @@
+import { activeType } from "../../../type";
 import { PageShadow } from "./Shadow.style";
 
-const Shadow = ({ isActive, setIsActive }) => {
+const Shadow = ({ isActive, setIsActive }: activeType) => {
   return (
     <PageShadow isActive={isActive} onClick={() => setIsActive(!isActive)} />
   );

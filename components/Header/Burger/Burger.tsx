@@ -1,6 +1,7 @@
+import { activeType } from "../../../type";
 import { BurgerContainer } from "./Burger.style";
 
-const Burger = ({ isActive, setIsActive }) => {
+const Burger = ({ isActive, setIsActive }: activeType) => {
   return (
     <BurgerContainer isActive={isActive} onClick={() => setIsActive(!isActive)}>
       <svg

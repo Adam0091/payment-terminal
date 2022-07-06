@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 
 import Layout from "../components/Layout";
+import AnimTitle from "./../components/UI-Kit/AnimTitle/";
 
 import { PageWrapper } from "../components/PageWrapper.style";
-import AnimTitle from "./../components/UI-Kit/AnimTitle/AnimTitle";
 
 const App: NextPage = () => {
   return (

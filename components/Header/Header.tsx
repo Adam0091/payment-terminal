@@ -57,14 +57,13 @@ const Header = () => {
 
         <NavListStyle isActive={active}>
           {navigation.map(({ id, title, path: path }) => (
-            <Link
-              key={id}
-              href={path}
-              onClick={() => {
-                handlerBurger(false);
-              }}
-            >
-              <NavLinkStyle isActiveLink={checkPath(path, pathname)}>
+            <Link key={id} href={path}>
+              <NavLinkStyle
+                onClick={() => {
+                  handlerBurger(false);
+                }}
+                isActiveLink={checkPath(path, pathname)}
+              >
                 {title}
               </NavLinkStyle>
             </Link>

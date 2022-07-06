@@ -1,26 +1,25 @@
 import { useState } from "react";
 import { InputAdornment } from "@mui/material";
 
+import { inputType } from "../../../../type";
 import {
   InputContainer,
   InputWrapper,
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputSum.style";
 
-const InputSum = ({ value, onChange, setError }) => {
+const InputSum = ({ value, onChange, setError }: inputType) => {
   const [sumDirty, setSumDirty] = useState(false);
   const [sumErrorMessage, setSumErrorMessage] = useState(
     "Введите сумму для перевода"
   );
 
-  const blurHandler = (event: Event) => {
-    const targetName = (event.target as HTMLInputElement).name;
+  const blurHandler = (targetName: string) => {
     if (targetName === "sum") setSumDirty(true);
   };
 
-  const sumHandler = (event: Event) => {
-    let value = (event.target as HTMLInputElement).value;
-    value = value.replace(/ /g, "");
+  const sumHandler = (targetValue: string) => {
+    value = targetValue.replace(/ /g, "");
 
     if (!isNaN(Number(value)) && Number(value) >= 0) {
       setSumErrorMessage("");
@@ -43,8 +42,12 @@ const InputSum = ({ value, onChange, setError }) => {
     <InputWrapper>
       <InputContainer>
         <CssTextField
-          onChange={(e) => sumHandler(e)}
-          onBlur={(e) => blurHandler(e)}
+          onChange={(event) =>
+            sumHandler((event.target as HTMLInputElement).value)
+          }
+          onBlur={(event) =>
+            blurHandler((event.target as HTMLInputElement).name)
+          }
           value={value}
           name="sum"
           error={Boolean(sumErrorMessage) && sumDirty}

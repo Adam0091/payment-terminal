@@ -20,8 +20,7 @@ const Input = ({
 }) => {
   const [inputDirty, setInputDirty] = useState(false);
 
-  const blurHandler = (event: Event) => {
-    const targetName = (event.target as HTMLInputElement).name;
+  const blurHandler = (targetName: string) => {
     if (targetName === name) setInputDirty(true);
   };
 
@@ -40,7 +39,7 @@ const Input = ({
           name={name}
           value={value}
           InputLabelProps={{ style: { fontSize: 12 } }}
-          onBlur={(e) => blurHandler(e)}
+          onBlur={(e) => blurHandler(e.target.name)}
           onChange={(e) => onChange(e.target.value)}
         />
       </InputContainer>
