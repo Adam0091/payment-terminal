@@ -1,7 +1,7 @@
 import { activeType } from "../../../type";
 import { BurgerContainer } from "./Burger.style";
 
-const Burger = ({ isActive, setIsActive }: activeType) => {
+export const Burger = ({ isActive, setIsActive }: activeType) => {
   return (
     <BurgerContainer isActive={isActive} onClick={() => setIsActive(!isActive)}>
       <svg
@@ -18,5 +18,3 @@ const Burger = ({ isActive, setIsActive }: activeType) => {
     </BurgerContainer>
   );
 };
-
-export default Burger;

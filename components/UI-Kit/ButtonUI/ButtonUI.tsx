@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 import { ColorButton } from "./ButtonUI.style";
 
-const ButtonUI = ({
+export const ButtonUI = ({
   text,
   onClick,
   disabled,
@@ -16,5 +16,3 @@ const ButtonUI = ({
     </ColorButton>
   );
 };
-
-export default ButtonUI;

@@ -1,9 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const uri =
-  "mongodb+srv://adam:adam@cluster0.rpdro.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MOBGO_URL as string;
 const options = {};
 const client = new MongoClient(uri, options);
-const clientPromise = client.connect();
-
-export default clientPromise;
+export const clientPromise = client.connect();

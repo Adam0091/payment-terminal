@@ -1,1 +1,1 @@
-export { default } from "./ProviderBackLink";
+export * from "./ProviderBackLink";

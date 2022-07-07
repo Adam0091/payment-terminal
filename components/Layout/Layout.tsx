@@ -1,18 +1,23 @@
 import * as React from "react";
-import Header from "./../Header/";
+
 import { PageStyle } from "./Layout.style";
+import { Header } from "./../Header/Header";
 
 export interface StandardComponentProps {
   title?: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
-const Layout = ({ children }: StandardComponentProps) => (
-  <>
-    <PageStyle>
-      <Header />
-      {children}
-    </PageStyle>
-  </>
-);
-export default Layout;
+export const Layout = ({ children }: StandardComponentProps) => {
+  const [scroll, setScroll] = React.useState(true);
+  console.log(scroll);
+
+  return (
+    <>
+      <PageStyle canScroll={scroll}>
+        <Header setScroll={(canScroll: boolean) => setScroll(canScroll)} />
+        {children}
+      </PageStyle>
+    </>
+  );
+};

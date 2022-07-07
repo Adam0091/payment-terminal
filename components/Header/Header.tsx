@@ -2,8 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import Burger from "./Burger/";
-import Shadow from "./Shadow/";
+import { Burger } from "./Burger/";
+import { Shadow } from "./Shadow/";
 
 import {
   HeaderWrapper,
@@ -34,12 +34,17 @@ const checkPath = (path: string, pathname: string): boolean => {
   return false;
 };
 
-const Header = () => {
+export const Header = ({
+  setScroll,
+}: {
+  setScroll: (value: boolean) => void;
+}) => {
   const { pathname } = useRouter();
   const [active, setActive] = useState(false);
 
   const handlerBurger = (value: boolean) => {
     setActive(value);
+    setScroll(!value);
   };
 
   return (
@@ -74,5 +79,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

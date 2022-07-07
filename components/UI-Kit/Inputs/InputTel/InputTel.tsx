@@ -10,7 +10,7 @@ import {
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputTel.style";
 
-const InputTel = ({ value, onChange, setError }: inputType) => {
+export const InputTel = ({ value, onChange, setError }: inputType) => {
   const [telDirty, setTelDirty] = useState(false);
   const [telErrorMessage, setTelErrorMessage] = useState(
     "Телефон не может быть пустым"
@@ -61,5 +61,3 @@ const InputTel = ({ value, onChange, setError }: inputType) => {
     </InputWrapper>
   );
 };
-
-export default InputTel;

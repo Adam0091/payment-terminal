@@ -1,14 +1,16 @@
-import Layout from "../../components/Layout/Layout";
-import ProviderBackLink from "../../components/Providers/ProviderBackLink";
+import { useState } from "react";
+import { Alert, styled } from "@mui/material";
+import { useRouter } from "next/router";
+
+import { Layout } from "../../components/Layout/Layout";
+import { ProviderBackLink } from "../../components/Providers/ProviderBackLink";
+import { LoaderUI } from "../../components/UI-Kit/LoaderUI";
+import { ButtonUI } from "../../components/UI-Kit/ButtonUI";
+import { Input } from "../../components/UI-Kit/Inputs/Input";
 
 import { Container, Wrapper } from "../../components/Providers/Providers.style";
 import { FormWrapper } from "../../components/Providers/ProviderPaymentForm/ProviderPaymentForm.style";
-import ButtonUI from "../../components/UI-Kit/ButtonUI";
-import Input from "../../components/UI-Kit/Inputs/Input";
 import { PageWrapper } from "../../components/PageWrapper.style";
-import { useState } from "react";
-import { Alert, CircularProgress, styled } from "@mui/material";
-import { useRouter } from "next/router";
 
 export const AlertFixed = styled(Alert)({
   position: "fixed",
@@ -21,8 +23,7 @@ const AddProvider = () => {
   const [nameProvider, setNameProvider] = useState("");
   const [urlLogoProvider, setUrlLogoProvider] = useState("");
   const [isSend, setIsSend] = useState(false);
-  const [error, setError] = useState(false);
-  const [res, setRes] = useState(false);
+  const [errorSend, setErrorSend] = useState<boolean | null>(null);
   const router = useRouter();
 
   const handleClick = async () => {
@@ -30,31 +31,32 @@ const AddProvider = () => {
       ? process.env.API_HOST
       : "http://localhost:3000";
 
-    try {
-      const response = await fetch(`${api_host}/api/providers`);
-      const dataGet = await response.json();
+    setIsSend(true);
 
-      const dataPost = await fetch(`${api_host}/api/providers`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: dataGet.length,
-          name: nameProvider,
-          logo: urlLogoProvider,
-        }),
-      });
-      const res = Boolean(await dataPost.json);
+    const response = await fetch(`${api_host}/api/providers`);
+    const dataGet = await response.json();
 
-      setIsSend(true);
-      res ? setError(false) : setError(true);
-      setRes(true);
-      if (!error) setTimeout(() => router.back(), 1500);
-    } catch (err) {
-      setIsSend(true);
-      setError(true);
+    const dataPost = await fetch(`${api_host}/api/providers`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: dataGet.length,
+        name: nameProvider,
+        logo: urlLogoProvider,
+      }),
+    });
+    const res = Boolean(await dataPost.json);
+
+    res ? setErrorSend(false) : setErrorSend(true);
+    if (!errorSend) setTimeout(() => router.back(), 1500);
+    else {
+      setTimeout(() => {
+        setIsSend(false);
+        setErrorSend(null);
+      }, 1500);
     }
   };
 
@@ -84,18 +86,18 @@ const AddProvider = () => {
               <ButtonUI
                 text="Создать"
                 onClick={handleClick}
-                disabled={!((nameProvider && urlLogoProvider) || isSend)}
+                disabled={!(nameProvider && urlLogoProvider) || isSend}
               />
             </FormWrapper>
           </Container>
         </Wrapper>
         {isSend &&
-          (res ? (
-            <AlertFixed severity={error ? "error" : "success"}>
-              {error ? "Провайдер не был создан" : "Провайдер создан"}
+          (errorSend !== null ? (
+            <AlertFixed severity={errorSend ? "error" : "success"}>
+              {errorSend ? "Провайдер не был создан" : "Провайдер создан"}
             </AlertFixed>
           ) : (
-            <CircularProgress />
+            <LoaderUI />
           ))}
       </PageWrapper>
     </Layout>

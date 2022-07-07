@@ -1,1 +1,1 @@
-export { default } from "./InputSum";
+export * from "./InputSum";

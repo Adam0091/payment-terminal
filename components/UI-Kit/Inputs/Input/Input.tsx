@@ -5,7 +5,7 @@ import {
 import { CssTextField } from "./Input.style";
 import { useState } from "react";
 
-const Input = ({
+export const Input = ({
   label,
   required,
   value,
@@ -46,5 +46,3 @@ const Input = ({
     </InputWrapper>
   );
 };
-
-export default Input;

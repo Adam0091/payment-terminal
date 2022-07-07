@@ -1,9 +1,13 @@
-import Layout from "../../components/Layout/Layout";
-import ProviderPaymentForm from "../../components/Providers/ProviderPaymentForm";
-import { PageWrapper } from "../../components/PageWrapper.style";
 import { GetServerSideProps } from "next";
+
+import { clientPromise } from "./../../lib/mongodb";
+
+import { Layout } from "../../components/Layout/Layout";
+import { ProviderPaymentForm } from "../../components/Providers/ProviderPaymentForm";
+
 import { providerType } from "../../type";
-import clientPromise from "./../../lib/mongodb";
+
+import { PageWrapper } from "../../components/PageWrapper.style";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providerID = context.params?.providerID as string;

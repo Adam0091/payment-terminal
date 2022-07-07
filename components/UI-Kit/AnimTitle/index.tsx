@@ -1,1 +1,1 @@
-export { default } from "./AnimTitle";
+export * from "./AnimTitle";

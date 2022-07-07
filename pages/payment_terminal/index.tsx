@@ -1,11 +1,12 @@
 import { NextPage } from "next";
+import { clientPromise } from "../../lib/mongodb";
 
-import Layout from "../../components/Layout";
-import ProvidersList from "../../components/Providers/ProvidersList";
+import { Layout } from "../../components/Layout";
+import { ProvidersList } from "../../components/Providers/ProvidersList";
+
+import { providerType } from "../../type";
 
 import { PageWrapper } from "../../components/PageWrapper.style";
-import clientPromise from "../../lib/mongodb";
-import { providerType } from "../../type";
 
 export const getServerSideProps = async () => {
   const client = await clientPromise;

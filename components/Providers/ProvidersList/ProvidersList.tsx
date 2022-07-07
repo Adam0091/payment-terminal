@@ -1,15 +1,22 @@
-import Provider from "../ProviderItem";
+import { useRouter } from "next/router";
+
+import { AddProvider } from "../AddProvider/AddProvider";
+import { ProviderItem } from "./../ProviderItem/ProviderItem";
+
+import { providerType } from "../../../type";
+
+import { Container, Wrapper } from "../Providers.style";
 import {
   ProvidersListLi,
   ProvidersListUl,
   TitleStyle,
 } from "./ProvidersList.style";
-import AddProvider from "../AddProvider/AddProvider";
-import { providerType } from "../../../type";
-import { Container, Wrapper } from "../Providers.style";
-import { useRouter } from "next/router";
 
-const ProvidersList = ({ providers }: { providers: Array<providerType> }) => {
+export const ProvidersList = ({
+  providers,
+}: {
+  providers: Array<providerType>;
+}) => {
   const router = useRouter();
 
   return (
@@ -23,7 +30,7 @@ const ProvidersList = ({ providers }: { providers: Array<providerType> }) => {
                 key={provider.id}
                 onClick={() => router.push(`/payment_terminal/${id}`)}
               >
-                <Provider {...provider} />
+                <ProviderItem {...provider} />
               </ProvidersListLi>
             ))}
 
@@ -33,5 +40,3 @@ const ProvidersList = ({ providers }: { providers: Array<providerType> }) => {
     </Wrapper>
   );
 };
-
-export default ProvidersList;

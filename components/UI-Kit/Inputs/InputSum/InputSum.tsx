@@ -8,7 +8,7 @@ import {
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputSum.style";
 
-const InputSum = ({ value, onChange, setError }: inputType) => {
+export const InputSum = ({ value, onChange, setError }: inputType) => {
   const [sumDirty, setSumDirty] = useState(false);
   const [sumErrorMessage, setSumErrorMessage] = useState(
     "Введите сумму для перевода"
@@ -68,5 +68,3 @@ const InputSum = ({ value, onChange, setError }: inputType) => {
     </InputWrapper>
   );
 };
-
-export default InputSum;

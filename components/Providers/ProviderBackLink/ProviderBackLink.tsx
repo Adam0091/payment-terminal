@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { WrapperBackLink } from "./ProviderBackLink.style";
 
-const ProviderBackLink = () => {
+export const ProviderBackLink = () => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -17,5 +17,3 @@ const ProviderBackLink = () => {
     </div>
   );
 };
-
-export default ProviderBackLink;

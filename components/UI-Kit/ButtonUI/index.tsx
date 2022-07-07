@@ -1,1 +1,1 @@
-export { default } from "./ButtonUI";
+export * from "./ButtonUI";

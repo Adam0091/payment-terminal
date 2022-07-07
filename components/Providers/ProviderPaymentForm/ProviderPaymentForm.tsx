@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 
-import ProviderBackLink from "../ProviderBackLink";
-import ProviderLogo from "../ProviderLogo";
-import InputTel from "../../UI-Kit/Inputs/InputTel";
-import InputSum from "../../UI-Kit/Inputs/InputSum";
-import ButtonUI from "../../UI-Kit/ButtonUI";
+import { ProviderBackLink } from "../ProviderBackLink";
+import { ProviderLogo } from "../ProviderLogo";
+import { InputTel } from "../../UI-Kit/Inputs/InputTel";
+import { InputSum } from "../../UI-Kit/Inputs/InputSum";
+import { ButtonUI } from "../../UI-Kit/ButtonUI";
 import { Alert, styled } from "@mui/material";
 
 import { providerType } from "../../../type";
@@ -12,6 +12,7 @@ import { providerType } from "../../../type";
 import { Container, Wrapper } from "../Providers.style";
 import { useState } from "react";
 import { FormWrapper, ProviderLogoWrapper } from "./ProviderPaymentForm.style";
+import { LoaderUI } from "../../UI-Kit/LoaderUI";
 
 export const AlertFixed = styled(Alert)({
   position: "fixed",
@@ -20,19 +21,24 @@ export const AlertFixed = styled(Alert)({
   margin: "0 30px 0 0",
 });
 
-const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
+export const ProviderPaymentForm = ({
+  provider,
+}: {
+  provider: providerType;
+}) => {
   const router = useRouter();
   const [tel, setTel] = useState("");
   const [sum, setSum] = useState("0");
   const [isSend, setIsSend] = useState(false);
   const [errorTel, setErrorTel] = useState(true);
   const [errorSum, setErrorSum] = useState(true);
-  const [errorSend, setErrorSend] = useState(false);
+  const [errorSend, setErrorSend] = useState<boolean | null>(null);
   const { name, logo } = provider || {};
 
   if (!provider) return <h1>Провайдер не известен</h1>;
 
   const handleClick = async () => {
+    setIsSend(true);
     const api_host = process.env.API_HOST
       ? process.env.API_HOST
       : "http://localhost:3000";
@@ -48,11 +54,14 @@ const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
       }),
     });
 
-    setIsSend(true);
-
     dataPost.ok ? setErrorSend(false) : setErrorSend(true);
     if (dataPost.ok) {
-      setTimeout(() => router.back(), 500);
+      setTimeout(() => router.back(), 1000);
+    } else {
+      setTimeout(() => {
+        setIsSend(false);
+        setErrorSend(null);
+      }, 1000);
     }
   };
 
@@ -78,18 +87,19 @@ const ProviderPaymentForm = ({ provider }: { provider: providerType }) => {
           />
           <ButtonUI
             text="Оплатить"
-            disabled={errorTel || errorSum}
+            disabled={errorTel || errorSum || isSend}
             onClick={handleClick}
           />
         </FormWrapper>
       </Container>
-      {isSend && (
-        <AlertFixed severity={errorSend ? "error" : "success"}>
-          {errorSend ? "Оплата не прошла" : "Оплата прошла успешна"}
-        </AlertFixed>
-      )}
+      {isSend &&
+        (errorSend !== null ? (
+          <AlertFixed severity={errorSend ? "error" : "success"}>
+            {errorSend ? "Оплата не прошла" : "Оплата прошла успешна"}
+          </AlertFixed>
+        ) : (
+          <LoaderUI />
+        ))}
     </Wrapper>
   );
 };
-
-export default ProviderPaymentForm;
