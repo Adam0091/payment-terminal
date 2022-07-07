@@ -15,5 +15,6 @@ export const PageStyle = styled.div<{ canScroll: boolean }>`
 
   @media screen and (max-width: 767px) {
     overflow-y: ${({ canScroll }) => (canScroll ? "visible" : "hidden")};
+    min-height: 800px;
   }
 `;

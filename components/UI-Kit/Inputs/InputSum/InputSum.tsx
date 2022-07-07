@@ -19,22 +19,22 @@ export const InputSum = ({ value, onChange, setError }: inputType) => {
   };
 
   const sumHandler = (targetValue: string) => {
-    value = targetValue.replace(/ /g, "");
+    const valueTarget = targetValue.replace(/ /g, "");
 
-    if (!isNaN(Number(value)) && !value.includes("`") && Number(value) >= 0) {
+    if (!isNaN(Number(valueTarget)) && Number(valueTarget) >= 0) {
       setSumErrorMessage("");
       setError(false);
 
-      if (Number(value) == 0) {
+      if (Number(valueTarget) == 0) {
         setError(true);
         setSumErrorMessage("Введите сумму для перевода");
       }
-      if (Number(value) > 1000) {
+      if (Number(valueTarget) > 1000) {
         setError(true);
         setSumErrorMessage("Слишком большая сумма");
       }
 
-      onChange(`${Number(value)}`);
+      onChange(`${Number(valueTarget)}`);
     } else onChange(`${value}`);
   };
 

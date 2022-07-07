@@ -10,7 +10,6 @@ export interface StandardComponentProps {
 
 export const Layout = ({ children }: StandardComponentProps) => {
   const [scroll, setScroll] = React.useState(true);
-  console.log(scroll);
 
   return (
     <>
