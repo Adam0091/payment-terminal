@@ -1,5 +1,9 @@
-import { activeType } from "../../../type";
 import { PageShadow } from "./Shadow.style";
+
+type activeType = {
+  isActive: boolean;
+  setIsActive: Function;
+};
 
 export const Shadow = ({ isActive, setIsActive }: activeType) => {
   return (

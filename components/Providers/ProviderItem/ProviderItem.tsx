@@ -1,13 +1,12 @@
 import { ProviderWrapper } from "./ProviderItem.style";
 import { ProviderLogo } from "../ProviderLogo/ProviderLogo";
 
-export const ProviderItem = ({
-  name,
-  logo,
-}: {
+type TProps = {
   name: string;
   logo: string;
-}) => {
+};
+
+export const ProviderItem = ({ name, logo }: TProps) => {
   return (
     <ProviderWrapper key={name}>
       <ProviderLogo src={logo} alt={name} />

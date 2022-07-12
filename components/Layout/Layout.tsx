@@ -3,7 +3,7 @@ import * as React from "react";
 import { PageStyle } from "./Layout.style";
 import { Header } from "./../Header/Header";
 
-export interface StandardComponentProps {
+interface StandardComponentProps {
   title?: string;
   children: React.ReactNode | React.ReactNode[];
 }

@@ -1,6 +1,8 @@
 import { TitleWrapper } from "./AnimTitle.style";
 
-export const AnimTitle = ({ text }: { text: string }) => {
+type TProps = { text: string };
+
+export const AnimTitle = ({ text }: TProps) => {
   return (
     <TitleWrapper>
       <h2>{text}</h2>

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
+import { routes } from "../../route-path";
+
 import { Burger } from "./Burger/";
 import { Shadow } from "./Shadow/";
 
@@ -14,15 +16,6 @@ import {
   NavListStyle,
 } from "./Header.style";
 
-const navigation = [
-  { id: 1, title: "Home", path: "/" },
-  {
-    id: 2,
-    title: "Payment terminal",
-    path: "payment_terminal",
-  },
-];
-
 const checkPath = (path: string, pathname: string): boolean => {
   const pathnameWithoutSleshes = path.replace(/\//g, "");
   if (
@@ -34,11 +27,11 @@ const checkPath = (path: string, pathname: string): boolean => {
   return false;
 };
 
-export const Header = ({
-  setScroll,
-}: {
+type TProps = {
   setScroll: (value: boolean) => void;
-}) => {
+};
+
+export const Header = ({ setScroll }: TProps) => {
   const { pathname } = useRouter();
   const [active, setActive] = useState(false);
 
@@ -61,7 +54,7 @@ export const Header = ({
         </Link>
 
         <NavListStyle isActive={active}>
-          {navigation.map(({ id, title, path: path }) => (
+          {routes.map(({ id, title, path: path }) => (
             <Link key={id} href={path}>
               <NavLinkStyle
                 onClick={() => {

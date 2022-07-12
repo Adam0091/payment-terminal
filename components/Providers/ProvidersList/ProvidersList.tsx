@@ -12,11 +12,11 @@ import {
   TitleStyle,
 } from "./ProvidersList.style";
 
-export const ProvidersList = ({
-  providers,
-}: {
+type TProps = {
   providers: Array<providerType>;
-}) => {
+};
+
+export const ProvidersList = ({ providers }: TProps) => {
   const router = useRouter();
 
   return (

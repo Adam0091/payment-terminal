@@ -1,5 +1,9 @@
-import { activeType } from "../../../type";
 import { BurgerContainer } from "./Burger.style";
+
+type activeType = {
+  isActive: boolean;
+  setIsActive: Function;
+};
 
 export const Burger = ({ isActive, setIsActive }: activeType) => {
   return (

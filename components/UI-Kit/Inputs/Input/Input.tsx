@@ -5,19 +5,15 @@ import {
 import { CssTextField } from "./Input.style";
 import { useState } from "react";
 
-export const Input = ({
-  label,
-  required,
-  value,
-  name,
-  onChange,
-}: {
+type TProps = {
   label: string;
   required: boolean;
-  value: any;
+  value: string;
   name: string;
   onChange: any;
-}) => {
+};
+
+export const Input = ({ label, required, value, name, onChange }: TProps) => {
   const [inputDirty, setInputDirty] = useState(false);
 
   const blurHandler = (targetName: string) => {

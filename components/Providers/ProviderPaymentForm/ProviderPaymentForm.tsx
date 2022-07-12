@@ -21,27 +21,38 @@ export const AlertFixed = styled(Alert)({
   margin: "0 30px 0 0",
 });
 
-export const ProviderPaymentForm = ({
-  provider,
-}: {
+type TProps = {
   provider: providerType;
-}) => {
+};
+
+export const ProviderPaymentForm = ({ provider }: TProps) => {
   const router = useRouter();
-  const [tel, setTel] = useState("");
-  const [sum, setSum] = useState("0");
-  const [isSend, setIsSend] = useState(false);
-  const [errorTel, setErrorTel] = useState(true);
-  const [errorSum, setErrorSum] = useState(true);
-  const [errorSend, setErrorSend] = useState<boolean | null>(null);
+  const [inputValues, setInputValues] = useState({
+    tel: "",
+    sum: "0",
+  });
+  const [errors, setErrors] = useState({
+    tel: true,
+    sum: true,
+  });
+  const [isSend, setIsSend] = useState<{
+    message: boolean;
+    error: boolean | null;
+  }>({
+    message: false,
+    error: false,
+  });
   const { name, logo } = provider || {};
 
   if (!provider) return <h1>Провайдер не известен</h1>;
 
   const handleClick = async () => {
-    setIsSend(true);
-    const api_host = process.env.API_HOST
-      ? process.env.API_HOST
-      : "http://localhost:3000";
+    setIsSend({
+      ...isSend,
+      message: true,
+    });
+    const api_host = process.env.API_HOST;
+
     const dataPost = await fetch(`${api_host}/api/pay`, {
       method: "POST",
       headers: {
@@ -49,18 +60,28 @@ export const ProviderPaymentForm = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        tel: tel,
-        sum: sum,
+        tel: inputValues.tel,
+        sum: inputValues.sum,
       }),
     });
 
-    dataPost.ok ? setErrorSend(false) : setErrorSend(true);
     if (dataPost.ok) {
+      setIsSend({
+        ...isSend,
+        error: false,
+      });
       setTimeout(() => router.back(), 1000);
     } else {
+      setIsSend({
+        ...isSend,
+        error: true,
+      });
+
       setTimeout(() => {
-        setIsSend(false);
-        setErrorSend(null);
+        setIsSend({
+          error: null,
+          message: false,
+        });
       }, 1000);
     }
   };
@@ -76,26 +97,46 @@ export const ProviderPaymentForm = ({
 
         <FormWrapper className="form">
           <InputTel
-            value={tel}
-            onChange={(value: string) => setTel(value)}
-            setError={(isError: boolean) => setErrorTel(isError)}
+            value={inputValues.tel}
+            onChange={(value: string) =>
+              setInputValues({
+                ...inputValues,
+                tel: value,
+              })
+            }
+            setError={(isError: boolean) =>
+              setErrors({
+                ...errors,
+                tel: isError,
+              })
+            }
           />
           <InputSum
-            value={sum}
-            onChange={(value: string) => setSum(value)}
-            setError={(isError: boolean) => setErrorSum(isError)}
+            value={inputValues.sum}
+            onChange={(value: string) =>
+              setInputValues({
+                ...inputValues,
+                sum: value,
+              })
+            }
+            setError={(isError: boolean) =>
+              setErrors({
+                ...errors,
+                sum: isError,
+              })
+            }
           />
           <ButtonUI
             text="Оплатить"
-            disabled={errorTel || errorSum || isSend}
+            disabled={errors.tel || errors.sum || isSend.message}
             onClick={handleClick}
           />
         </FormWrapper>
       </Container>
-      {isSend &&
-        (errorSend !== null ? (
-          <AlertFixed severity={errorSend ? "error" : "success"}>
-            {errorSend ? "Оплата не прошла" : "Оплата прошла успешна"}
+      {isSend.message &&
+        (isSend.error !== null ? (
+          <AlertFixed severity={isSend.error ? "error" : "success"}>
+            {isSend.error ? "Оплата не прошла" : "Оплата прошла успешна"}
           </AlertFixed>
         ) : (
           <LoaderUI />
