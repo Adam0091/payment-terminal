@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 
 import { clientPromise } from "./../../lib/mongodb";
 
-import { Layout } from "../../components/Layout/Layout";
+import { Layout } from "../../components/Layout";
 import { ProviderPaymentForm } from "../../components/Providers/ProviderPaymentForm";
 
 import { providerType } from "../../type";

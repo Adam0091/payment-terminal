@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert, styled } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { Layout } from "../../components/Layout/Layout";
+import { Layout } from "../../components/Layout";
 import { ProviderBackLink } from "../../components/Providers/ProviderBackLink";
 import { LoaderUI } from "../../components/UI-Kit/LoaderUI";
 import { ButtonUI } from "../../components/UI-Kit/ButtonUI";
