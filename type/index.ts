@@ -4,8 +4,7 @@ export type providerType = {
   logo: string
 }
 
-export type inputType = {
-  value: string
-  onChange: Function
-  setError: Function
+export type TValueInputs = {
+  tel: string;
+  sum: string;
 }

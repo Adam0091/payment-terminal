@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { InputAdornment } from "@mui/material";
 
-import { inputType } from "../../../../type";
 import {
   InputContainer,
   InputWrapper,
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputSum.style";
 
-export const InputSum = ({ value, onChange, setError }: inputType) => {
+type TProps = {
+  value: string;
+  onChange: Function;
+  error: any;
+  setError: Function;
+};
+
+export const InputSum = ({ value, onChange, error, setError }: TProps) => {
   const [sumDirty, setSumDirty] = useState(false);
-  const [sumErrorMessage, setSumErrorMessage] = useState(
-    "Введите сумму для перевода"
-  );
 
   const blurHandler = (targetName: string) => {
     if (targetName === "sum") setSumDirty(true);
@@ -22,16 +25,13 @@ export const InputSum = ({ value, onChange, setError }: inputType) => {
     const valueTarget = targetValue.replace(/ /g, "");
 
     if (!isNaN(Number(valueTarget)) && Number(valueTarget) >= 0) {
-      setSumErrorMessage("");
-      setError(false);
+      setError(false, "");
 
       if (Number(valueTarget) == 0) {
-        setError(true);
-        setSumErrorMessage("Введите сумму для перевода");
+        setError(true, "Введите сумму для перевода");
       }
       if (Number(valueTarget) > 1000) {
-        setError(true);
-        setSumErrorMessage("Слишком большая сумма");
+        setError(true, "Слишком большая сумма");
       }
 
       onChange(`${Number(valueTarget)}`);
@@ -50,7 +50,7 @@ export const InputSum = ({ value, onChange, setError }: inputType) => {
           }
           value={value}
           name="sum"
-          error={Boolean(sumErrorMessage) && sumDirty}
+          error={Boolean(error.errorMessage) && sumDirty}
           required
           fullWidth
           label="Вветите сумму платежа"
@@ -62,8 +62,8 @@ export const InputSum = ({ value, onChange, setError }: inputType) => {
           }}
         />
       </InputContainer>
-      {sumDirty && sumErrorMessage && (
-        <div style={{ color: "red" }}>{sumErrorMessage}</div>
+      {sumDirty && error.value && (
+        <div style={{ color: "red" }}>{error.errorMessage}</div>
       )}
     </InputWrapper>
   );

@@ -1,9 +1,10 @@
+import { useState } from "react";
+
 import {
   InputContainer,
   InputWrapper,
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./Input.style";
-import { useState } from "react";
 
 type TProps = {
   label: string;

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, styled } from "@mui/material";
 import { useRouter } from "next/router";
+
+import { addNewProviders, getProviders } from "../../utils/network";
 
 import { Layout } from "../../components/Layout";
 import { ProviderBackLink } from "../../components/Providers/ProviderBackLink";
@@ -9,45 +10,33 @@ import { ButtonUI } from "../../components/UI-Kit/ButtonUI";
 import { Input } from "../../components/UI-Kit/Inputs/Input";
 
 import { Container, Wrapper } from "../../components/Providers/Providers.style";
-import { FormWrapper } from "../../components/Providers/ProviderPaymentForm/ProviderPaymentForm.style";
+import {
+  AlertFixed,
+  FormWrapper,
+} from "../../components/Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { PageWrapper } from "../../components/PageWrapper.style";
 
-export const AlertFixed = styled(Alert)({
-  position: "fixed",
-  top: "90%",
-  right: "0",
-  margin: "0 30px 0 0",
-});
-
 const AddProvider = () => {
-  const [nameProvider, setNameProvider] = useState("");
-  const [urlLogoProvider, setUrlLogoProvider] = useState("");
+  const router = useRouter();
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    urlLogo: "",
+  });
+  // const [nameProvider, setNameProvider] = useState("");
+  // const [urlLogoProvider, setUrlLogoProvider] = useState("");
   const [isSend, setIsSend] = useState(false);
   const [errorSend, setErrorSend] = useState<boolean | null>(null);
-  const router = useRouter();
 
   const handleClick = async () => {
-    const api_host = process.env.API_HOST
-      ? process.env.API_HOST
-      : "http://localhost:3000";
-
     setIsSend(true);
 
-    const response = await fetch(`${api_host}/api/providers`);
-    const dataGet = await response.json();
+    const providers = await getProviders();
+    const dataPost = await addNewProviders(
+      providers.length,
+      inputValues.name,
+      inputValues.urlLogo
+    );
 
-    const dataPost = await fetch(`${api_host}/api/providers`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: dataGet.length,
-        name: nameProvider,
-        logo: urlLogoProvider,
-      }),
-    });
     const res = Boolean(await dataPost.json);
 
     res ? setErrorSend(false) : setErrorSend(true);
@@ -72,21 +61,31 @@ const AddProvider = () => {
               <Input
                 required={true}
                 label={"Введите название провайдера"}
-                value={nameProvider}
+                value={inputValues.name}
                 name={"nameProvider"}
-                onChange={setNameProvider}
+                onChange={(value: string) =>
+                  setInputValues({
+                    ...inputValues,
+                    name: value,
+                  })
+                }
               />
               <Input
                 required={true}
                 label={"Введите ссылку на логотип"}
-                value={urlLogoProvider}
+                value={inputValues.urlLogo}
                 name={"urlLogo"}
-                onChange={setUrlLogoProvider}
+                onChange={(value: string) =>
+                  setInputValues({
+                    ...inputValues,
+                    urlLogo: value,
+                  })
+                }
               />
               <ButtonUI
                 text="Создать"
                 onClick={handleClick}
-                disabled={!(nameProvider && urlLogoProvider) || isSend}
+                disabled={!(inputValues.name && inputValues.urlLogo) || isSend}
               />
             </FormWrapper>
           </Container>

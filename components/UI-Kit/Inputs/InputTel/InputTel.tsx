@@ -2,33 +2,34 @@ import { useState } from "react";
 import * as React from "react";
 import InputMask from "react-input-mask";
 
-import { inputType } from "../../../../type";
-
 import {
   InputContainer,
   InputWrapper,
 } from "../../../Providers/ProviderPaymentForm/ProviderPaymentForm.style";
 import { CssTextField } from "./InputTel.style";
 
-export const InputTel = ({ value, onChange, setError }: inputType) => {
+type TProps = {
+  value: string;
+  onChange: Function;
+  error: any;
+  setError: Function;
+};
+
+export const InputTel = ({ value, onChange, error, setError }: TProps) => {
   const [telDirty, setTelDirty] = useState(false);
-  const [telErrorMessage, setTelErrorMessage] = useState(
-    "Телефон не может быть пустым"
-  );
 
   const blurHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const targetName = event.target.name;
     if (targetName === "tel") setTelDirty(true);
   };
+
   const telHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
     if (!value.includes(" ")) {
-      setError(false);
-      setTelErrorMessage("");
+      setError(false, "");
     } else {
-      setError(true);
-      setTelErrorMessage("Телефон не может быть пустым");
+      setError(true, "Телефон не может быть пустым");
     }
     onChange(value);
   };
@@ -48,15 +49,15 @@ export const InputTel = ({ value, onChange, setError }: inputType) => {
           <CssTextField
             type="tel"
             required
-            error={Boolean(telErrorMessage) && telDirty}
+            error={error.value && telDirty}
             fullWidth
             label="Telephon"
             variant="outlined"
           />
         </InputMask>
       </InputContainer>
-      {telDirty && telErrorMessage && (
-        <div style={{ color: "red" }}>{telErrorMessage}</div>
+      {telDirty && error.value && (
+        <div style={{ color: "red" }}>{error.errorMessage}</div>
       )}
     </InputWrapper>
   );

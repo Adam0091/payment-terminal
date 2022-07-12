@@ -1,5 +1,13 @@
 import styled from "styled-components";
+import { Alert, styled as styledMUI } from "@mui/material";
 import { fontSize } from "../../../style_constants";
+
+export const AlertFixed = styledMUI(Alert)({
+  position: "fixed",
+  top: "90%",
+  right: "0",
+  margin: "0 30px 0 0",
+});
 
 export const FormWrapper = styled.form`
   width: 90%;
