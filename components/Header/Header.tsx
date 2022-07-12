@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 import { routes } from "../../route-path";
+import { checkPath } from "../../services/checkPath";
 
 import { Burger } from "./Burger/";
 import { Shadow } from "./Shadow/";
@@ -16,16 +17,7 @@ import {
   NavListStyle,
 } from "./Header.style";
 
-const checkPath = (path: string, pathname: string): boolean => {
-  const pathnameWithoutSleshes = path.replace(/\//g, "");
-  if (
-    pathname.includes(pathnameWithoutSleshes) &&
-    pathnameWithoutSleshes !== ""
-  )
-    return true;
-  else if (pathnameWithoutSleshes == "" && pathname === "/") return true;
-  return false;
-};
+
 
 type TProps = {
   setScroll: (value: boolean) => void;
@@ -44,7 +36,7 @@ export const Header = ({ setScroll }: TProps) => {
     <>
       <Shadow isActive={active} setIsActive={handlerBurger} />
       <HeaderWrapper>
-        <Link href="/">
+        <Link href={routes[0].path}>
           <LogoLink>
             <LogoWrapper>
               <LogoContainer />
