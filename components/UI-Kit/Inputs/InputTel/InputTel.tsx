@@ -10,9 +10,9 @@ import { CssTextField } from "./InputTel.style";
 
 type TProps = {
   value: string;
-  onChange: Function;
-  error: any;
-  setError: Function;
+  onChange: (value: string) => void;
+  error: { value: boolean; errorMessage: string };
+  setError: (value: boolean, errorMessage: string) => void;
 };
 
 export const InputTel = ({ value, onChange, error, setError }: TProps) => {

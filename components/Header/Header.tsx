@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import { routes } from "../../route-path";
+import { routesHeader } from "../../routes/route-path";
 import { checkPath } from "../../services/checkPath";
 
 import { Burger } from "./Burger/";
@@ -16,8 +16,6 @@ import {
   NavLinkStyle,
   NavListStyle,
 } from "./Header.style";
-
-
 
 type TProps = {
   setScroll: (value: boolean) => void;
@@ -36,7 +34,7 @@ export const Header = ({ setScroll }: TProps) => {
     <>
       <Shadow isActive={active} setIsActive={handlerBurger} />
       <HeaderWrapper>
-        <Link href={routes[0].path}>
+        <Link href={routesHeader[0].path}>
           <LogoLink>
             <LogoWrapper>
               <LogoContainer />
@@ -46,7 +44,7 @@ export const Header = ({ setScroll }: TProps) => {
         </Link>
 
         <NavListStyle isActive={active}>
-          {routes.map(({ id, title, path: path }) => (
+          {routesHeader.map(({ id, title, path: path }) => (
             <Link key={id} href={path}>
               <NavLinkStyle
                 onClick={() => {

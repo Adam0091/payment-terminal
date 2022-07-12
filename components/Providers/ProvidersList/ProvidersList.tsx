@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { routesHeader } from "../../../routes/route-path";
 
 import { AddProvider } from "../AddProvider/AddProvider";
 import { ProviderItem } from "./../ProviderItem/ProviderItem";
@@ -25,10 +26,10 @@ export const ProvidersList = ({ providers }: TProps) => {
       <Container>
         <ProvidersListUl>
           {providers &&
-            providers.map((provider: providerType, id) => (
+            providers.map((provider, id) => (
               <ProvidersListLi
                 key={provider.id}
-                onClick={() => router.push(`/payment_terminal/${id}`)}
+                onClick={() => router.push(`${routesHeader[1].path}/${id}`)}
               >
                 <ProviderItem {...provider} />
               </ProvidersListLi>

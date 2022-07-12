@@ -2,7 +2,7 @@ import { PageShadow } from "./Shadow.style";
 
 type activeType = {
   isActive: boolean;
-  setIsActive: Function;
+  setIsActive: (value: boolean) => void;
 };
 
 export const Shadow = ({ isActive, setIsActive }: activeType) => {

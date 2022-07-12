@@ -2,7 +2,7 @@ import { BurgerContainer } from "./Burger.style";
 
 type activeType = {
   isActive: boolean;
-  setIsActive: Function;
+  setIsActive: (value: boolean) => void;
 };
 
 export const Burger = ({ isActive, setIsActive }: activeType) => {

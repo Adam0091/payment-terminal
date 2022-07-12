@@ -14,7 +14,7 @@ export const Layout = ({ children }: StandardComponentProps) => {
   return (
     <>
       <PageStyle canScroll={scroll}>
-        <Header setScroll={(canScroll: boolean) => setScroll(canScroll)} />
+        <Header setScroll={(canScroll) => setScroll(canScroll)} />
         {children}
       </PageStyle>
     </>

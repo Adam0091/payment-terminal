@@ -11,7 +11,7 @@ type TProps = {
   required: boolean;
   value: string;
   name: string;
-  onChange: any;
+  onChange: (value: string) => void;
 };
 
 export const Input = ({ label, required, value, name, onChange }: TProps) => {

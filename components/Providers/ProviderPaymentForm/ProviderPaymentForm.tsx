@@ -60,6 +60,34 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
     }
   };
 
+  const handleOnChangeTel = (value: string) => {
+    setInputValues({
+      ...inputValues,
+      tel: value,
+    });
+  };
+
+  const handleSetErrorTel = (value: boolean, errorMessage: string) => {
+    setErrorTel({
+      value,
+      errorMessage,
+    });
+  };
+
+  const handleOnChangeSum = (value: string) => {
+    setInputValues({
+      ...inputValues,
+      sum: value,
+    });
+  };
+
+  const handleSetErrorSum = (value: boolean, errorMessage: string) => {
+    setErrorSum({
+      value,
+      errorMessage,
+    });
+  };
+
   return (
     <Wrapper height="50%">
       <ProviderBackLink />
@@ -72,35 +100,15 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
         <FormWrapper className="form">
           <InputTel
             value={inputValues.tel}
-            onChange={(value: string) =>
-              setInputValues({
-                ...inputValues,
-                tel: value,
-              })
-            }
+            onChange={handleOnChangeTel}
             error={errorTel}
-            setError={(value: boolean, errorMessage: string) =>
-              setErrorTel({
-                value,
-                errorMessage,
-              })
-            }
+            setError={handleSetErrorTel}
           />
           <InputSum
             value={inputValues.sum}
-            onChange={(value: string) =>
-              setInputValues({
-                ...inputValues,
-                sum: value,
-              })
-            }
+            onChange={handleOnChangeSum}
             error={errorSum}
-            setError={(value: boolean, errorMessage: string) =>
-              setErrorSum({
-                value,
-                errorMessage,
-              })
-            }
+            setError={handleSetErrorSum}
           />
           <ButtonUI
             text="Оплатить"

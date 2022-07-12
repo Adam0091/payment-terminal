@@ -22,8 +22,6 @@ const AddProvider = () => {
     name: "",
     urlLogo: "",
   });
-  // const [nameProvider, setNameProvider] = useState("");
-  // const [urlLogoProvider, setUrlLogoProvider] = useState("");
   const [isSend, setIsSend] = useState(false);
   const [errorSend, setErrorSend] = useState<boolean | null>(null);
 
@@ -49,6 +47,20 @@ const AddProvider = () => {
     }
   };
 
+  const handleOnChangeName = (value: string) => {
+    setInputValues({
+      ...inputValues,
+      name: value,
+    });
+  };
+
+  const handleOnChangeLogoURL = (value: string) => {
+    setInputValues({
+      ...inputValues,
+      urlLogo: value,
+    });
+  };
+
   return (
     <Layout>
       <PageWrapper>
@@ -63,24 +75,14 @@ const AddProvider = () => {
                 label={"Введите название провайдера"}
                 value={inputValues.name}
                 name={"nameProvider"}
-                onChange={(value: string) =>
-                  setInputValues({
-                    ...inputValues,
-                    name: value,
-                  })
-                }
+                onChange={handleOnChangeName}
               />
               <Input
                 required={true}
                 label={"Введите ссылку на логотип"}
                 value={inputValues.urlLogo}
                 name={"urlLogo"}
-                onChange={(value: string) =>
-                  setInputValues({
-                    ...inputValues,
-                    urlLogo: value,
-                  })
-                }
+                onChange={handleOnChangeLogoURL}
               />
               <ButtonUI
                 text="Создать"
