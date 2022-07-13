@@ -1,5 +1,3 @@
-import { Url } from "url"
-
 export const routesHeader = [
   { id: 1, title: 'Home', path: '/' },
   {
