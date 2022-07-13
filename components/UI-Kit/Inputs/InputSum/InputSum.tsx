@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InputAdornment } from "@mui/material";
 
+import { TValueInputs } from "../../../../type";
 import {
   InputContainer,
   InputWrapper,
@@ -8,13 +9,18 @@ import {
 import { CssTextField } from "./InputSum.style";
 
 type TProps = {
-  value: string;
-  onChange: (value: string) => void;
+  valueInputs: TValueInputs;
+  setValueInputs: (value: TValueInputs) => void;
   error: { value: boolean; errorMessage: string };
   setError: (value: boolean, errorMessage: string) => void;
 };
 
-export const InputSum = ({ value, onChange, error, setError }: TProps) => {
+export const InputSum = ({
+  valueInputs,
+  setValueInputs,
+  error,
+  setError,
+}: TProps) => {
   const [sumDirty, setSumDirty] = useState(false);
 
   const blurHandler = (targetName: string) => {
@@ -34,8 +40,15 @@ export const InputSum = ({ value, onChange, error, setError }: TProps) => {
         setError(true, "Слишком большая сумма");
       }
 
-      onChange(`${Number(valueTarget)}`);
-    } else onChange(`${value}`);
+      setValueInputs({
+        tel: valueInputs.tel,
+        sum: `${Number(valueTarget)}`,
+      });
+    } else
+      setValueInputs({
+        tel: valueInputs.tel,
+        sum: valueInputs.sum,
+      });
   };
 
   return (
@@ -48,7 +61,7 @@ export const InputSum = ({ value, onChange, error, setError }: TProps) => {
           onBlur={(event) =>
             blurHandler((event.target as HTMLInputElement).name)
           }
-          value={value}
+          value={valueInputs.sum}
           name="sum"
           error={Boolean(error.errorMessage) && sumDirty}
           required

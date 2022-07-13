@@ -7,13 +7,11 @@ import { PageWrapper } from "../components/PageWrapper.style";
 
 const App: NextPage = () => {
   return (
-    <>
-      <Layout>
-        <PageWrapper>
-          <AnimTitle text={"Welcome to CodePay"} />
-        </PageWrapper>
-      </Layout>
-    </>
+    <Layout>
+      <PageWrapper>
+        <AnimTitle text={"Welcome to CodePay"} />
+      </PageWrapper>
+    </Layout>
   );
 };
 

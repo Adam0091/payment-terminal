@@ -11,10 +11,10 @@ type TProps = {
   required: boolean;
   value: string;
   name: string;
-  onChange: (value: string) => void;
+  setValue: (value: string) => void;
 };
 
-export const Input = ({ label, required, value, name, onChange }: TProps) => {
+export const Input = ({ label, required, value, name, setValue }: TProps) => {
   const [inputDirty, setInputDirty] = useState(false);
 
   const blurHandler = (targetName: string) => {
@@ -37,7 +37,7 @@ export const Input = ({ label, required, value, name, onChange }: TProps) => {
           value={value}
           InputLabelProps={{ style: { fontSize: 12 } }}
           onBlur={(e) => blurHandler(e.target.name)}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
         />
       </InputContainer>
     </InputWrapper>

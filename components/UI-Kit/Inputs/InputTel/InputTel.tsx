@@ -2,6 +2,8 @@ import { useState } from "react";
 import * as React from "react";
 import InputMask from "react-input-mask";
 
+import { TValueInputs } from "../../../../type";
+
 import {
   InputContainer,
   InputWrapper,
@@ -9,13 +11,18 @@ import {
 import { CssTextField } from "./InputTel.style";
 
 type TProps = {
-  value: string;
-  onChange: (value: string) => void;
+  valueInputs: TValueInputs;
+  setValueInputs: (value: TValueInputs) => void;
   error: { value: boolean; errorMessage: string };
   setError: (value: boolean, errorMessage: string) => void;
 };
 
-export const InputTel = ({ value, onChange, error, setError }: TProps) => {
+export const InputTel = ({
+  valueInputs,
+  setValueInputs,
+  error,
+  setError,
+}: TProps) => {
   const [telDirty, setTelDirty] = useState(false);
 
   const blurHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,14 +31,23 @@ export const InputTel = ({ value, onChange, error, setError }: TProps) => {
   };
 
   const telHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const emptyLength = 4; // количество символов при пустом input
+    const fullLength = 17; // количесвто символов при заполненом input
     const value = event.target.value;
+    console.log(value.length);
 
-    if (!value.includes(" ")) {
-      setError(false, "");
-    } else {
+    if (emptyLength === value.length) {
       setError(true, "Телефон не может быть пустым");
+    } else if (value.length < fullLength) {
+      setError(true, "Неправильно ввели номер");
+    } else {
+      setError(false, "");
     }
-    onChange(value);
+
+    setValueInputs({
+      tel: value,
+      sum: valueInputs.sum,
+    });
   };
 
   return (
@@ -39,10 +55,10 @@ export const InputTel = ({ value, onChange, error, setError }: TProps) => {
       <InputContainer>
         <InputMask
           alwaysShowMask={true}
-          maskPlaceholder=" "
+          maskPlaceholder=""
           name="tel"
           mask="+7(\999)-999-99-99"
-          value={value}
+          value={valueInputs.tel}
           onChange={(e) => telHandler(e)}
           onBlur={(e) => blurHandler(e)}
         >

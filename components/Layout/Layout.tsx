@@ -12,11 +12,9 @@ export const Layout = ({ children }: StandardComponentProps) => {
   const [scroll, setScroll] = React.useState(true);
 
   return (
-    <>
-      <PageStyle canScroll={scroll}>
-        <Header setScroll={(canScroll) => setScroll(canScroll)} />
-        {children}
-      </PageStyle>
-    </>
+    <PageStyle canScroll={scroll}>
+      <Header setScroll={(canScroll) => setScroll(canScroll)} />
+      {children}
+    </PageStyle>
   );
 };

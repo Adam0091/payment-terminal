@@ -26,7 +26,7 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
   const router = useRouter();
   const [isSendReq, setIsSendReq] = useState(false);
   const [isErrorAlert, setIsErrorAlert] = useState<boolean | null>(null);
-  const [inputValues, setInputValues] = useState<TValueInputs>({
+  const [valueInputs, setValueInputs] = useState<TValueInputs>({
     tel: "",
     sum: "0",
   });
@@ -46,7 +46,7 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
 
   const handleClick = async () => {
     setIsSendReq(true);
-    const dataPostRes = await postPayment(inputValues);
+    const dataPostRes = await postPayment(valueInputs);
 
     if (dataPostRes.ok) {
       setIsErrorAlert(false);
@@ -60,10 +60,9 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
     }
   };
 
-  const handleOnChangeTel = (value: string) => {
-    setInputValues({
+  const handleOnChange = (inputValues: TValueInputs) => {
+    setValueInputs({
       ...inputValues,
-      tel: value,
     });
   };
 
@@ -71,13 +70,6 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
     setErrorTel({
       value,
       errorMessage,
-    });
-  };
-
-  const handleOnChangeSum = (value: string) => {
-    setInputValues({
-      ...inputValues,
-      sum: value,
     });
   };
 
@@ -99,14 +91,14 @@ export const ProviderPaymentForm = ({ provider }: TProps) => {
 
         <FormWrapper className="form">
           <InputTel
-            value={inputValues.tel}
-            onChange={handleOnChangeTel}
+            valueInputs={valueInputs}
+            setValueInputs={handleOnChange}
             error={errorTel}
             setError={handleSetErrorTel}
           />
           <InputSum
-            value={inputValues.sum}
-            onChange={handleOnChangeSum}
+            valueInputs={valueInputs}
+            setValueInputs={handleOnChange}
             error={errorSum}
             setError={handleSetErrorSum}
           />

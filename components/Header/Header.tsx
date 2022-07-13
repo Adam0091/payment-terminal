@@ -44,7 +44,7 @@ export const Header = ({ setScroll }: TProps) => {
         </Link>
 
         <NavListStyle isActive={active}>
-          {routesHeader.map(({ id, title, path: path }) => (
+          {routesHeader.map(({ id, title, path }) => (
             <Link key={id} href={path}>
               <NavLinkStyle
                 onClick={() => {

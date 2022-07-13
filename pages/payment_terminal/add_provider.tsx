@@ -18,7 +18,7 @@ import { PageWrapper } from "../../components/PageWrapper.style";
 
 const AddProvider = () => {
   const router = useRouter();
-  const [inputValues, setInputValues] = useState({
+  const [valueInputs, setValueInputs] = useState({
     name: "",
     urlLogo: "",
   });
@@ -31,8 +31,8 @@ const AddProvider = () => {
     const providers = await getProviders();
     const dataPost = await addNewProviders(
       providers.length,
-      inputValues.name,
-      inputValues.urlLogo
+      valueInputs.name,
+      valueInputs.urlLogo
     );
 
     const res = Boolean(await dataPost.json);
@@ -48,15 +48,15 @@ const AddProvider = () => {
   };
 
   const handleOnChangeName = (value: string) => {
-    setInputValues({
-      ...inputValues,
+    setValueInputs({
+      urlLogo: valueInputs.urlLogo,
       name: value,
     });
   };
 
   const handleOnChangeLogoURL = (value: string) => {
-    setInputValues({
-      ...inputValues,
+    setValueInputs({
+      name: valueInputs.name,
       urlLogo: value,
     });
   };
@@ -73,21 +73,21 @@ const AddProvider = () => {
               <Input
                 required={true}
                 label={"Введите название провайдера"}
-                value={inputValues.name}
+                value={valueInputs.name}
                 name={"nameProvider"}
-                onChange={handleOnChangeName}
+                setValue={handleOnChangeName}
               />
               <Input
                 required={true}
                 label={"Введите ссылку на логотип"}
-                value={inputValues.urlLogo}
+                value={valueInputs.urlLogo}
                 name={"urlLogo"}
-                onChange={handleOnChangeLogoURL}
+                setValue={handleOnChangeLogoURL}
               />
               <ButtonUI
                 text="Создать"
                 onClick={handleClick}
-                disabled={!(inputValues.name && inputValues.urlLogo) || isSend}
+                disabled={!(valueInputs.name && valueInputs.urlLogo) || isSend}
               />
             </FormWrapper>
           </Container>
