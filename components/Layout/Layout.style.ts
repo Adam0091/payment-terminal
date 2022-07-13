@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PageStyle = styled.div<{ canScroll: boolean }>`
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   top: 0;
   left: 0;
